@@ -1,3 +1,27 @@
-<h1>
-  {{title}}
-</h1>
+<div *ngFor="let player of players">
+  <div>Imię i nazwisko: {{player.name}} {{player.surname}}</div>
+  <div>Wartość rynkowa: {{player.price}} mln € </div>
+</div>
+
+<div *ngIf="selectedplayer">
+  <p>Wybrany zawodnik:</p>
+  <input [(ngModel)]="selectedplayer.name" placeholder="Wpisz imię">
+  <input [(ngModel)]="selectedplayer.surname" placeholder="Wpisz nazwisko">
+  <input [(ngModel)]="selectedplayer.age" placeholder="Wpisz wiek">
+  <input [(ngModel)]="selectedplayer.country" placeholder="Wpisz kraj"> 
+  <input [(ngModel)]="selectedplayer.price" placeholder="Wpisz wartość">
+</div>
+
+<div>
+  <p>Dodaj zawodnika</p>
+  <form>
+    <!--[(ngModel)]="currAge"-->
+    <!--[(ngModel)]="currPrice"-->
+    <input type="text" name="name" placeholder="Wpisz imię" [(ngModel)]="currName">
+    <input type="text" name="surname" placeholder="Wpisz nazwisko" [(ngModel)]="currSurname">
+    <input type="number" name="age" placeholder="Wpisz wiek" [ngModel]="currAge" (input)="sanitizeAge($event)">
+    <input type="text" name="country" placeholder="Wpisz kraj" [(ngModel)]="currCountry">
+    <input type="number" name="price" placeholder="Wpisz wartość (mln€)" [ngModel]="currPrice" (input)="sanitizePrice($event)">
+    <input type="button" value="Dodaj zawodnika!" [disabled]="!checkIfReady()" (click)="addPlayer()">
+  </form>
+</div>
